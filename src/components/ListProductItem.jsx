@@ -2,10 +2,12 @@ import React from 'react';
 
 function ListProductItem(props) {
     return (
-        <div>
-            <h1>Lista de productos</h1>
-            hox
-        </div>
+        <tr>
+            <td>{props.name}</td>
+            <td>{props.description}</td>
+            <td>{props.price}</td>
+            <td>Eliminar - Editar</td>
+        </tr>
     );
 }
 
