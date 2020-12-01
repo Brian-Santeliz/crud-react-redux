@@ -1,6 +1,6 @@
 import ListProductsEmpty from "./ListProductsEmpty";
 import ListProductItem from "./ListProductItem";
-import Error from './Error'
+import Error from "./Error";
 import Spinner from "./Spinner";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const ListProducts = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.length === 0 ? (
+                {products.length > 0 ? (
                   <ListProductsEmpty title="Stock of Products is empty" />
                 ) : (
                   products.map((product) => (

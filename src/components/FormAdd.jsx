@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {useHistory} from "react-router-dom"
 import {useDispatch} from 'react-redux'
-import {AddProduct} from "./redux/actions"
+import {addProduct} from "./redux/actions"
 const FormAdd = () => {
   const initialState = {
     name:"",
@@ -23,7 +23,7 @@ const FormAdd = () => {
       //crear error aqui
       return 
     }
-   dispatch(AddProduct(form))
+   dispatch(addProduct(form))
     history.push("/")
     setForm(initialState)
   }

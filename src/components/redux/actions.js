@@ -6,6 +6,9 @@ import {
   GET_PRODUCT,
   GET_PRODUCT_ERROR,
   GET_PRODUCT_START,
+  DELETE_PRODUCT,
+  DELETE_PRODUCT_ERROR,
+  DELETE_PRODUCT_START,
 } from "../redux/types";
 export const getProducts = () => {
   return async (dispatch) => {
@@ -19,7 +22,7 @@ export const getProducts = () => {
     }
   };
 };
-export const AddProduct = (product) => {
+export const addProduct = (product) => {
   return async (dispatch) => {
     dispatch(addProductStart());
     try {
@@ -30,6 +33,17 @@ export const AddProduct = (product) => {
       }
     } catch (error) {
       dispatch(addProductError(true));
+    }
+  };
+};
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    dispatch(deleteProductStart());
+    try {
+      await axios.delete(`/products/${id}`);
+      dispatch(deleteProductDatabase(id));
+    } catch (error) {
+      dispatch(deleteProductError(true));
     }
   };
 };
@@ -57,5 +71,19 @@ const getProductsDatabase = (products) => ({
 
 const getProductsError = (state) => ({
   type: GET_PRODUCT_ERROR,
+  payload: state,
+});
+
+const deleteProductStart = () => ({
+  type: DELETE_PRODUCT_START,
+});
+
+const deleteProductDatabase = (id) => ({
+  type: DELETE_PRODUCT,
+  payload: id,
+});
+
+const deleteProductError = (state) => ({
+  type: DELETE_PRODUCT_ERROR,
   payload: state,
 });
