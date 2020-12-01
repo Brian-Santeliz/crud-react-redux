@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "./redux/actions";
+import { deleteProduct, updateProduct } from "./redux/actions";
 import {useHistory} from 'react-router-dom'
 function ListProductItem(props) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const handleClickUpdate = (id)=>{
-    history.push(`/update/${id}`)
-  }
+  const handleClickUpdate = (props)=>{
+    dispatch(updateProduct(props))
+    history.push(`/update/${props._id}`)
+}
   const handleClick = (props) => {
     // eslint-disable-next-line no-restricted-globals
     const response = confirm(
@@ -23,7 +24,7 @@ function ListProductItem(props) {
       <td>{props.description}</td>
       <td>{props.price}</td>
       <td className="d-flex justify-content-center">
-        <button className="btn btn-info" onClick={()=>handleClickUpdate(props._id)}>
+        <button className="btn btn-info" onClick={()=>handleClickUpdate(props)}>
           Update
         </button>
         <button

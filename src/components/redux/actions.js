@@ -10,6 +10,7 @@ import {
   DELETE_PRODUCT_ERROR,
   DELETE_PRODUCT_START,
   GET_DELETE_PRODUCT,
+  GET_PRODUCT_EDIT,
 } from "../redux/types";
 export const getProducts = () => {
   return async (dispatch) => {
@@ -54,6 +55,13 @@ export const deleteProduct = (id) => {
   };
 };
 
+export const updateProduct = (product) => {
+  return async (dispatch) => {
+    dispatch(getProductEdit(product));
+    try {
+    } catch (error) {}
+  };
+};
 const addProductStart = () => ({
   type: ADD_PRODUCT_START,
 });
@@ -97,4 +105,9 @@ const deleteProductError = (state) => ({
 const getDeleteProduct = (id) => ({
   type: GET_DELETE_PRODUCT,
   payload: id,
+});
+
+const getProductEdit = (product) => ({
+  type: GET_PRODUCT_EDIT,
+  payload: product,
 });

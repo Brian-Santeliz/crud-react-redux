@@ -9,6 +9,7 @@ import {
   DELETE_PRODUCT_ERROR,
   DELETE_PRODUCT_START,
   GET_DELETE_PRODUCT,
+  GET_PRODUCT_EDIT,
 } from "../redux/types";
 const initialState = {
   products: [],
@@ -31,6 +32,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
+        active: null,
         products: [...state.products, payload],
       };
 
@@ -46,6 +48,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
+        active: null,
         products: payload,
       };
     case GET_DELETE_PRODUCT:
@@ -58,8 +61,15 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        products: state.products.filter((product) => product._id !== payload),
+        products: state.products.filter(
+          (product) => product._id !== state.deleteIdProduct
+        ),
         deleteIdProduct: null,
+      };
+    case GET_PRODUCT_EDIT:
+      return {
+        ...state,
+        active: payload,
       };
     default:
       return state;
