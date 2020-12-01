@@ -1,0 +1,3 @@
+export const ADD_PRODUCT_START = "ADD_PRODUCT_START";
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const ADD_PRODUCT_ERROR = "ADD_PRODUCT_ERROR";
