@@ -30,6 +30,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
+        error: false,
         products: [...state.products, payload],
       };
 
@@ -45,7 +46,6 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: false,
         products: payload,
       };
     case GET_DELETE_PRODUCT:
