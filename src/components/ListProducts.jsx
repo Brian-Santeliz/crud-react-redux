@@ -32,7 +32,7 @@ const ListProducts = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.length > 0 ? (
+                {products.length === 0 ? (
                   <ListProductsEmpty title="Stock of Products is empty" />
                 ) : (
                   products.map((product) => (

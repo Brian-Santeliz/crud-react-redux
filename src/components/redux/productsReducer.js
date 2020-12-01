@@ -8,12 +8,14 @@ import {
   DELETE_PRODUCT,
   DELETE_PRODUCT_ERROR,
   DELETE_PRODUCT_START,
+  GET_DELETE_PRODUCT,
 } from "../redux/types";
 const initialState = {
   products: [],
   active: null,
   error: false,
   loading: false,
+  deleteIdProduct: null,
 };
 export const reducerProducts = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -46,12 +48,18 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
         error: false,
         products: payload,
       };
+    case GET_DELETE_PRODUCT:
+      return {
+        ...state,
+        deleteIdProduct: payload,
+      };
     case DELETE_PRODUCT:
       return {
         ...state,
         loading: false,
         error: false,
         products: state.products.filter((product) => product._id !== payload),
+        deleteIdProduct: null,
       };
     default:
       return state;
