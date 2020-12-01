@@ -23,7 +23,6 @@ const FormAdd = () => {
       //crear error aqui
       return 
     }
-   //crear dispatch 
    dispatch(AddProduct(form))
     history.push("/")
     setForm(initialState)

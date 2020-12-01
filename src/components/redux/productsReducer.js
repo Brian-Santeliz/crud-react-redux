@@ -36,6 +36,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case GET_PRODUCT:
       return {
         ...state,
+        loading: false,
         products: payload,
       };
     default:
