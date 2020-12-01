@@ -1,6 +1,6 @@
 const ListProductsEmpty = ({ title }) => (
   <tr>
-    <td className="alert alert-danger text-uppercase font-weight-bold">
+    <td className="text-center alert alert-danger text-uppercase font-weight-bold">
       {title}
     </td>
   </tr>
