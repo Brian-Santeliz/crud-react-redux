@@ -1,5 +1,11 @@
 import {useEffect, useState} from 'react'
+import {useDispatch} from 'react-redux'
+/* CREACR ACCION WHEN COMPONENT DID MOUNT */
 const ListProducts = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(  )
+    }, [])
     return ( 
         <div className="container">
             <div className="d-flex justify-content-center">

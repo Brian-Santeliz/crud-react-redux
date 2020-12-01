@@ -1,9 +1,24 @@
+import axios from "../../clientAxios";
 import {
   ADD_PRODUCT,
   ADD_PRODUCT_START,
   ADD_PRODUCT_ERROR,
+  GET_PRODUCT,
+  GET_PRODUCT_ERROR,
+  GET_PRODUCT_START,
 } from "../redux/types";
-import axios from "../../clientAxios";
+export const getProducts = () => {
+  return async (dispatch) => {
+    dispatch(getProductsStart());
+    try {
+      const response = await axios.get("/products");
+      const data = response.data;
+      dispatch(getProductsDatabase(data));
+    } catch (error) {
+      dispatch(getProductsError(true));
+    }
+  };
+};
 export const AddProduct = (product) => {
   return async (dispatch) => {
     dispatch(addProductStart());
@@ -29,4 +44,18 @@ const addProductDatabase = (product) => ({
 const addProductError = (error) => ({
   type: ADD_PRODUCT_ERROR,
   payload: error,
+});
+
+const getProductsStart = () => ({
+  type: GET_PRODUCT_START,
+});
+
+const getProductsDatabase = (products) => ({
+  type: GET_PRODUCT,
+  payload: products,
+});
+
+const getProductsError = (state) => ({
+  type: GET_PRODUCT_ERROR,
+  payload: state,
 });

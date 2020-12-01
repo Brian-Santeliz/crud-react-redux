@@ -1,4 +1,11 @@
-import { ADD_PRODUCT, ADD_PRODUCT_ERROR, ADD_PRODUCT_START } from "./types";
+import {
+  ADD_PRODUCT,
+  ADD_PRODUCT_START,
+  ADD_PRODUCT_ERROR,
+  GET_PRODUCT,
+  GET_PRODUCT_ERROR,
+  GET_PRODUCT_START,
+} from "../redux/types";
 const initialState = {
   products: [],
   active: null,
@@ -7,6 +14,7 @@ const initialState = {
 };
 export const reducerProducts = (state = initialState, { type, payload }) => {
   switch (type) {
+    case GET_PRODUCT_START:
     case ADD_PRODUCT_START:
       return {
         ...state,
@@ -18,11 +26,17 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
         loading: false,
         products: [...state.products, payload],
       };
+    case GET_PRODUCT_ERROR:
     case ADD_PRODUCT_ERROR:
       return {
         ...state,
         loading: false,
         error: payload,
+      };
+    case GET_PRODUCT:
+      return {
+        ...state,
+        products: payload,
       };
     default:
       return state;
