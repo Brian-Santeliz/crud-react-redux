@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { initialState } from "./FormAdd";
-import { getActiveId } from "./redux/actions";
+import { getActiveId, updateProduct } from "./redux/actions";
 import Spinner from './Spinner'
 const FormUpdate = () => {
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ const FormUpdate = () => {
   }
   const handleSubmit = e=>{
     e.preventDefault();
-
-    /* Crear accion para editar */
+    dispatch(updateProduct(form))
+    history.push("/")
   }
   return (
     <>

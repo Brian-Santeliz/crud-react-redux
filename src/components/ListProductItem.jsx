@@ -1,22 +1,29 @@
 import { useDispatch } from "react-redux";
-import { deleteProduct, updateProduct } from "./redux/actions";
+import { deleteProduct, activeProductEdit } from "./redux/actions";
 import {useHistory} from 'react-router-dom'
+import Swal from 'sweetalert2'
 function ListProductItem(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const handleClickUpdate = (props)=>{
-    dispatch(updateProduct(props))
+    dispatch(activeProductEdit(props))
     history.push(`/update/${props._id}`)
 }
   const handleClick = (props) => {
-    // eslint-disable-next-line no-restricted-globals
-    const response = confirm(
-      `Are you sure in delete a product with name ${props.name}`
-    );
-    if (response) {
+    Swal.fire({
+      title: 'Delete',
+      text:   `Are you sure in delete a product with name ${props.name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
       dispatch(deleteProduct(props._id));
-      return;
-    }
+      }
+    })
+    
   };
   return (
     <tr>

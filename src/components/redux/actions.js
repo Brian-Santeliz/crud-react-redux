@@ -1,4 +1,5 @@
 import axios from "../../clientAxios";
+import Swal from "sweetalert2";
 import {
   ADD_PRODUCT,
   ADD_PRODUCT_START,
@@ -14,6 +15,9 @@ import {
   GET_ACTIVE_ID,
   GET_ACTIVE_ID_ERROR,
   GET_ACTIVE_ID_START,
+  EDIT_PRODUCT,
+  EDIT_PRODUCT_ERROR,
+  EDIT_PRODUCT_START,
 } from "../redux/types";
 export const getProducts = () => {
   return async (dispatch) => {
@@ -52,17 +56,16 @@ export const deleteProduct = (id) => {
     try {
       await axios.delete(`/products/${id}`);
       dispatch(deleteProductDatabase(id));
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
     } catch (error) {
       dispatch(deleteProductError(true));
     }
   };
 };
 
-export const updateProduct = (product) => {
-  return async (dispatch) => {
+export const activeProductEdit = (product) => {
+  return (dispatch) => {
     dispatch(getProductEdit(product));
-    try {
-    } catch (error) {}
   };
 };
 
@@ -79,6 +82,17 @@ export const getActiveId = (id) => {
   };
 };
 
+export const updateProduct = (product) => {
+  return async (dispatch) => {
+    dispatch(updateProductStart());
+    try {
+      await axios.put(`/products/${product._id}`, product);
+      dispatch(updateProductDatabase(product));
+    } catch (error) {
+      dispatch(updateProductError(true));
+    }
+  };
+};
 const addProductStart = () => ({
   type: ADD_PRODUCT_START,
 });
@@ -138,5 +152,19 @@ const getActiveIdDatabse = (data) => ({
 });
 const getActiveIdError = (state) => ({
   type: GET_ACTIVE_ID_ERROR,
+  payload: state,
+});
+
+const updateProductStart = () => ({
+  type: EDIT_PRODUCT_START,
+});
+
+const updateProductDatabase = (product) => ({
+  type: EDIT_PRODUCT,
+  payload: product,
+});
+
+const updateProductError = (state) => ({
+  type: EDIT_PRODUCT_ERROR,
   payload: state,
 });

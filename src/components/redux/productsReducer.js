@@ -13,6 +13,9 @@ import {
   GET_ACTIVE_ID,
   GET_ACTIVE_ID_ERROR,
   GET_ACTIVE_ID_START,
+  EDIT_PRODUCT,
+  EDIT_PRODUCT_ERROR,
+  EDIT_PRODUCT_START,
 } from "../redux/types";
 const initialState = {
   products: [],
@@ -27,6 +30,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case GET_PRODUCT_START:
     case ADD_PRODUCT_START:
     case GET_ACTIVE_ID_START:
+    case EDIT_PRODUCT_START:
       return {
         ...state,
         loading: true,
@@ -34,16 +38,17 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case ADD_PRODUCT:
       return {
         ...state,
+        products: [...state.products, payload],
         loading: false,
         error: false,
         active: null,
-        products: [...state.products, payload],
       };
 
     case DELETE_PRODUCT_ERROR:
     case GET_PRODUCT_ERROR:
     case ADD_PRODUCT_ERROR:
     case GET_ACTIVE_ID_ERROR:
+    case EDIT_PRODUCT_ERROR:
       return {
         ...state,
         loading: false,
@@ -52,9 +57,9 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case GET_PRODUCT:
       return {
         ...state,
+        products: payload,
         loading: false,
         active: null,
-        products: payload,
       };
     case GET_DELETE_PRODUCT:
       return {
@@ -64,11 +69,11 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case DELETE_PRODUCT:
       return {
         ...state,
-        loading: false,
-        error: false,
         products: state.products.filter(
           (product) => product._id !== state.deleteIdProduct
         ),
+        loading: false,
+        error: false,
         deleteIdProduct: null,
       };
     case GET_PRODUCT_EDIT:
@@ -79,9 +84,18 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case GET_ACTIVE_ID:
       return {
         ...state,
+        active: payload,
         loading: false,
         error: false,
-        active: payload,
+      };
+    case EDIT_PRODUCT:
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product.id === payload ? payload : product
+        ),
+        loading: false,
+        error: false,
       };
     default:
       return state;

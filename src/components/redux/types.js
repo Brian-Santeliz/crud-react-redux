@@ -14,6 +14,9 @@ export const GET_DELETE_PRODUCT = "GET_DELETE_PRODUCT";
 
 //When click to update a product
 export const GET_PRODUCT_EDIT = "GET_PRODUCT_EDIT";
+export const EDIT_PRODUCT_START = "EDIT_PRODUCT_START";
+export const EDIT_PRODUCT = "EDIT_PRODUCT";
+export const EDIT_PRODUCT_ERROR = "EDIT_PRODUCT_ERROR";
 
 //When reload the page to update, make a request http by id
 export const GET_ACTIVE_ID_START = "GET_ACTIVE_ID_START";
