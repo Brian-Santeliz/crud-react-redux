@@ -10,6 +10,9 @@ import {
   DELETE_PRODUCT_START,
   GET_DELETE_PRODUCT,
   GET_PRODUCT_EDIT,
+  GET_ACTIVE_ID,
+  GET_ACTIVE_ID_ERROR,
+  GET_ACTIVE_ID_START,
 } from "../redux/types";
 const initialState = {
   products: [],
@@ -23,6 +26,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case DELETE_PRODUCT_START:
     case GET_PRODUCT_START:
     case ADD_PRODUCT_START:
+    case GET_ACTIVE_ID_START:
       return {
         ...state,
         loading: true,
@@ -39,6 +43,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case DELETE_PRODUCT_ERROR:
     case GET_PRODUCT_ERROR:
     case ADD_PRODUCT_ERROR:
+    case GET_ACTIVE_ID_ERROR:
       return {
         ...state,
         loading: false,
@@ -69,6 +74,13 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
     case GET_PRODUCT_EDIT:
       return {
         ...state,
+        active: payload,
+      };
+    case GET_ACTIVE_ID:
+      return {
+        ...state,
+        loading: false,
+        error: false,
         active: payload,
       };
     default:

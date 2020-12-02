@@ -1,25 +1,41 @@
-import {useSelector} from 'react-redux'
-import {useState, useEffect} from 'react'
-import {useParams, use} from 'react-router-dom'
-import {initialState} from './FormAdd'
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { initialState } from "./FormAdd";
+import { getActiveId } from "./redux/actions";
+import Spinner from './Spinner'
 const FormUpdate = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const {id} = useParams()
-    const {products} = useSelector(select=>select.products);
-    const {active} = useSelector(select=>select.products);
-    console.log(active)
-    const [form, setForm] = useState(initialState)
-     const product = products.find(product=>product._id === id);
-     if(!product){
-       //ejecutar accion que llame a la api
-     }
-    useEffect(()=>{
-        setForm(product)
-    },[])
+  const { active, loading } = useSelector((select) => select.products);
+  const [form, setForm] = useState(initialState);
+  useEffect(() => {
+    if (!active) {
+      dispatch(getActiveId(id))
+      return;
+    }
+    setForm(active);
+  }, [active, dispatch, id]);
+  const handleChangeInput = ({target})=>{
+    setForm(prev=>{
+      return {
+        ...prev,
+        [target.name]:target.value,
+      }
+    })
+  }
+  const handleSubmit = e=>{
+    e.preventDefault();
+
+    /* Crear accion para editar */
+  }
   return (
-    <div className="container">
+    <>
+   {loading ? <Spinner /> : ( <div className="container">
       <div className="d-flex justify-content-center">
         <div className="col-md-6">
-          <form className="card">
+          <form className="card" onSubmit={handleSubmit}>
             <h1 className="font-weight-light text-center card-header">
               Update Product
             </h1>
@@ -27,6 +43,7 @@ const FormUpdate = () => {
               <div className="form-group">
                 <label htmlFor="name">Name:</label>
                 <input
+                  onChange={handleChangeInput}
                   required="required"
                   type="text"
                   id="name"
@@ -40,6 +57,7 @@ const FormUpdate = () => {
                 <label htmlFor="description">Description:</label>
 
                 <input
+                  onChange={handleChangeInput}
                   required="required"
                   type="text"
                   id="description"
@@ -52,6 +70,7 @@ const FormUpdate = () => {
               <div className="form-group">
                 <label htmlFor="price">Price:</label>
                 <input
+                  onChange={handleChangeInput}
                   required="required"
                   type="number"
                   id="price"
@@ -68,7 +87,8 @@ const FormUpdate = () => {
           </form>
         </div>
       </div>
-    </div>
+    </div>)}
+    </>
   );
 };
 

@@ -11,6 +11,9 @@ import {
   DELETE_PRODUCT_START,
   GET_DELETE_PRODUCT,
   GET_PRODUCT_EDIT,
+  GET_ACTIVE_ID,
+  GET_ACTIVE_ID_ERROR,
+  GET_ACTIVE_ID_START,
 } from "../redux/types";
 export const getProducts = () => {
   return async (dispatch) => {
@@ -62,6 +65,20 @@ export const updateProduct = (product) => {
     } catch (error) {}
   };
 };
+
+export const getActiveId = (id) => {
+  return async (dispatch) => {
+    dispatch(getActiveIdStart());
+    try {
+      const response = await axios.get(`/products/${id}`);
+      const data = response.data;
+      dispatch(getActiveIdDatabse(data));
+    } catch (error) {
+      dispatch(getActiveIdError(true));
+    }
+  };
+};
+
 const addProductStart = () => ({
   type: ADD_PRODUCT_START,
 });
@@ -110,4 +127,16 @@ const getDeleteProduct = (id) => ({
 const getProductEdit = (product) => ({
   type: GET_PRODUCT_EDIT,
   payload: product,
+});
+
+const getActiveIdStart = () => ({
+  type: GET_ACTIVE_ID_START,
+});
+const getActiveIdDatabse = (data) => ({
+  type: GET_ACTIVE_ID,
+  payload: data,
+});
+const getActiveIdError = (state) => ({
+  type: GET_ACTIVE_ID_ERROR,
+  payload: state,
 });

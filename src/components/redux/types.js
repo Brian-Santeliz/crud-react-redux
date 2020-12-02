@@ -12,4 +12,10 @@ export const DELETE_PRODUCT_ERROR = "DELETE_PRODUCT_ERROR";
 
 export const GET_DELETE_PRODUCT = "GET_DELETE_PRODUCT";
 
+//When click to update a product
 export const GET_PRODUCT_EDIT = "GET_PRODUCT_EDIT";
+
+//When reload the page to update, make a request http by id
+export const GET_ACTIVE_ID_START = "GET_ACTIVE_ID_START";
+export const GET_ACTIVE_ID = "GET_ACTIVE_ID";
+export const GET_ACTIVE_ID_ERROR = "GET_ACTIVE_ID_ERROR";
