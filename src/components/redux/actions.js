@@ -42,6 +42,8 @@ export const addProduct = (product) => {
       const response = await axios.post("/products", product);
       if (response.status === 201) {
         dispatch(addProductDatabase(product));
+        Swal.fire("Save!", "Product has been saved.", "success");
+
         return;
       }
     } catch (error) {
