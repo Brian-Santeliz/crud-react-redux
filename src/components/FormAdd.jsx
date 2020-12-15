@@ -39,7 +39,7 @@ const FormAdd = () => {
     setForm(initialState);
     history.push("/");
   };
-  const alertError = error && (
+   const alertError = error && (
     <div className={error.className}>{error.text}</div>
   );
   return (

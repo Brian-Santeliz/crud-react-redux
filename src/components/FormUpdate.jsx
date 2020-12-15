@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { initialState } from "./FormAdd";
 import { getActiveId, updateProduct } from "./redux/actions";
+import {errorFormAdd, deleteErrorActions} from './redux/alertaReducer/actions'
 import Spinner from './Spinner'
 const FormUpdate = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const {id} = useParams()
   const { active, loading } = useSelector((select) => select.products);
+  const { error } = useSelector((state) => state.alert);
   const [form, setForm] = useState(initialState);
   useEffect(() => {
     if (!active) {
@@ -27,14 +29,27 @@ const FormUpdate = () => {
   }
   const handleSubmit = e=>{
     e.preventDefault();
+    if(form.name.trim() === "" || form.description.trim() === "" || form.price ===""){
+      const errorObjet = {
+        className:"alert alert-danger text-danger font-weigth-bold text-center text-uppercase",
+        text:"Error in fields to update a product"
+      }
+     dispatch(errorFormAdd(errorObjet))
+     return;
+    }
+    dispatch(deleteErrorActions(null))
     dispatch(updateProduct(form))
     history.push("/")
   }
+  const alertError = error && (
+    <div className={error.className}>{error.text}</div>
+  );
   return (
     <>
    {loading ? <Spinner /> : ( <div className="container">
       <div className="d-flex justify-content-center">
         <div className="col-md-6">
+          {alertError}
           <form className="card" onSubmit={handleSubmit}>
             <h1 className="font-weight-light text-center card-header">
               Update Product
