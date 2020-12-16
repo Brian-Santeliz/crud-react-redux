@@ -1,9 +1,8 @@
-const Error = (props) => {
-  console.log(props)
+const Error = ({error}) => {
   return (
     <div className="d-flex justify-content-center">
       <p className="alert alert-danger p-2 text-uppercase font-weight-bolder">
-       {props.error}
+       {error}
       </p>
     </div>
   );

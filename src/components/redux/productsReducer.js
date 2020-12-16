@@ -34,6 +34,7 @@ export const reducerProducts = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
+        error: false,
       };
     case ADD_PRODUCT:
       return {

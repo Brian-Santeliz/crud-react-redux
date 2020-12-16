@@ -57,7 +57,7 @@ export const deleteProduct = (id) => {
     try {
       await axios.delete(`/products/${id}`);
       dispatch(deleteProductDatabase(id));
-      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      Swal.fire("Deleted!", "Your product has been deleted.", "success");
     } catch (error) {
       dispatch(deleteProductError(true));
     }
@@ -90,7 +90,10 @@ export const updateProduct = (id, product) => {
       await axios.put(`/products/${id}`, product);
       dispatch(updateProductDatabase(product));
     } catch (error) {
-      dispatch(updateProductError(true));
+      console.log(error);
+      dispatch(
+        updateProductError("You trying update the name, but it is exist")
+      );
     }
   };
 };

@@ -17,7 +17,7 @@ function ListProductItem(props) {
   const handleClick = (props) => {
     Swal.fire({
       title: 'Delete',
-      text:   `Are you sure in delete a product with name ${props.name}`,
+      text:   `Are you sure in delete a product with name ${props.name}?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
