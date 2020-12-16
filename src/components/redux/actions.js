@@ -31,7 +31,7 @@ export const getProducts = () => {
       }
       dispatch(getProductsDatabase([]));
     } catch (error) {
-      dispatch(getProductsError(true));
+      dispatch(getProductsError("Something was wrong with database."));
     }
   };
 };
@@ -59,7 +59,8 @@ export const deleteProduct = (id) => {
       dispatch(deleteProductDatabase(id));
       Swal.fire("Deleted!", "Your product has been deleted.", "success");
     } catch (error) {
-      dispatch(deleteProductError(true));
+      Swal.fire("Error!", "Something has wrong deleting.", "error");
+      dispatch(deleteProductError("Something has wrong deleting"));
     }
   };
 };
