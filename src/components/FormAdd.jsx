@@ -64,6 +64,7 @@ const FormAdd = () => {
                     name="name"
                     className="form-control"
                     placeholder="Write the name of product..."
+                    autoFocus
                   />
                 </div>
                 <div className="form-group">

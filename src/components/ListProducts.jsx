@@ -20,7 +20,7 @@ const ListProducts = () => {
       ) : (
         <div className="container">
           <h2 className="text-center text-capitalize">List of Products</h2>
-          {error && <Error />}
+          {error && <Error error={error} />}
           <div className="d-flex justify-content-center">
             <table className="table">
               <thead className="text-center bg-info">

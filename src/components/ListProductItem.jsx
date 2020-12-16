@@ -6,7 +6,12 @@ function ListProductItem(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const handleClickUpdate = (props)=>{
-    dispatch(activeProductEdit(props))
+    const productActive= {
+      name:props.name,
+      description:props.description,
+      price:props.price,
+    }
+    dispatch(activeProductEdit(productActive))
     history.push(`/update/${props._id}`)
 }
   const handleClick = (props) => {

@@ -1,8 +1,9 @@
-const Error = () => {
+const Error = (props) => {
+  console.log(props)
   return (
     <div className="d-flex justify-content-center">
       <p className="alert alert-danger p-2 text-uppercase font-weight-bolder">
-        Something has wrong with database
+       {props.error}
       </p>
     </div>
   );

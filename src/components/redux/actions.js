@@ -43,11 +43,10 @@ export const addProduct = (product) => {
       if (response.status === 201) {
         dispatch(addProductDatabase(product));
         Swal.fire("Save!", "Product has been saved.", "success");
-
         return;
       }
     } catch (error) {
-      dispatch(addProductError(true));
+      dispatch(addProductError("The name of product must be unique"));
     }
   };
 };
@@ -84,11 +83,11 @@ export const getActiveId = (id) => {
   };
 };
 
-export const updateProduct = (product) => {
+export const updateProduct = (id, product) => {
   return async (dispatch) => {
     dispatch(updateProductStart());
     try {
-      await axios.put(`/products/${product._id}`, product);
+      await axios.put(`/products/${id}`, product);
       dispatch(updateProductDatabase(product));
     } catch (error) {
       dispatch(updateProductError(true));
